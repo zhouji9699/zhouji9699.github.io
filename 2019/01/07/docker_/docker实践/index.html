@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>docker安装 | Zhou M博客</title>
+  <title>docker实践 | Zhou M博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker安装docker的各个版本之间安装的方式可以会略有不同,docker是基于linux的内核的所以不同的docker版本要对于好linux的版本,这里linux展示的是centOS6.8 linux下安装docker先执行安装命令 12yum install -y epel-releaseyum install -y docker-io 执行安装后会有配置文件/etc/sysconfig">
+  <meta name="description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker安装">
-<meta property="og:url" content="http://yoursite.com/2019/01/05/docker_/docker安装/index.html">
+<meta property="og:title" content="docker实践">
+<meta property="og:url" content="http://yoursite.com/2019/01/07/docker_/docker实践/index.html">
 <meta property="og:site_name" content="Zhou M博客">
-<meta property="og:description" content="docker安装docker的各个版本之间安装的方式可以会略有不同,docker是基于linux的内核的所以不同的docker版本要对于好linux的版本,这里linux展示的是centOS6.8 linux下安装docker先执行安装命令 12yum install -y epel-releaseyum install -y docker-io 执行安装后会有配置文件/etc/sysconfig">
+<meta property="og:description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-07T11:58:43.329Z">
+<meta property="og:updated_time" content="2019-01-07T09:24:01.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker安装">
-<meta name="twitter:description" content="docker安装docker的各个版本之间安装的方式可以会略有不同,docker是基于linux的内核的所以不同的docker版本要对于好linux的版本,这里linux展示的是centOS6.8 linux下安装docker先执行安装命令 12yum install -y epel-releaseyum install -y docker-io 执行安装后会有配置文件/etc/sysconfig">
+<meta name="twitter:title" content="docker实践">
+<meta name="twitter:description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
   
     <link rel="alternative" href="/atom.xml" title="Zhou M博客" type="application/atom+xml">
   
@@ -145,63 +145,30 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-docker_/docker安装" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-docker_/docker实践" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      docker安装
+      docker实践
     </h1>
   
 
         
-        <a href="/2019/01/05/docker_/docker安装/" class="archive-article-date">
-  	<time datetime="2019-01-05T01:41:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-05</time>
+        <a href="/2019/01/07/docker_/docker实践/" class="archive-article-date">
+  	<time datetime="2019-01-07T08:21:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h2><p>docker的各个版本之间安装的方式可以会略有不同,docker是基于linux的内核的所以不同的docker版本要对于好linux的版本,这里linux展示的是centOS6.8</p>
-<h3 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h3><p>先执行安装命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release</span><br><span class="line">yum install -y docker-io</span><br></pre></td></tr></table></figure>
-<p>执行安装后会有配置文件/etc/sysconfig/docker<br> <a id="more"></a> </p>
-<p>启动Docker后台服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker start</span><br></pre></td></tr></table></figure></p>
-<p>验证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure></p>
-<p>查看详情<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure></p>
-<p>linux下安装的比较简单，但是注意版本</p>
-<p>配置加速镜像<br>配置Docker加速器的本质就是把Docker配置文件中的镜像下载地址由默认的Docker Hub地址变为国内镜像的加速地址。<br>因为国内访问国外的网络实在是太忙了</p>
-<p>加速镜像可以配置阿里的，腾讯之类的，但是要去开通一下可能会要付费，我就没有去开通了<br>只是找了一个可以使用的地址<br>我们设置了这个地址，如果我们pull一个镜像，如果这个地址里面没有这个镜像，那就下载不到</p>
-<p>6.8配置/etc/sysconfig/docker文件<br>other_args=”–registry-mirror=<a href="https://jxus37ad.mirror.aliyuncs.com&quot;" target="_blank" rel="noopener">https://jxus37ad.mirror.aliyuncs.com&quot;</a></p>
-<p>配置好other_args参数就可以<br>然后重启docker 命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure></p>
-<p>6.8的可以通过<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps ef | grep docker</span><br></pre></td></tr></table></figure></p>
-<p>验证是否添加加速成功,如果看到上面设置的地址就是成功了</p>
-<p>docker大部分的添加镜像的版本还是配置位置在/etc/docker/daemon.json的文件</p>
-<p>在docker文件中添加了other_args,最好还是看看有没有daemon.json的文件和里面的配置的地址</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"registry-mirrors"</span>: [<span class="string">"https://jxus37ad.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果daemon.json的文件的地址跟配置的地址一致就OK了，一般来说都是直接配置这个文件，不需要配置other_args，但是还是有一些版本需要通过<br>other_args来生成daemon.json里面的地址</p>
-<h3 id="Win10家庭版本"><a href="#Win10家庭版本" class="headerlink" title="Win10家庭版本"></a>Win10家庭版本</h3><p>之前说过docker是基于linux内核的，所以docker的win版本也是先帮你安装box的虚拟机，再在虚拟机里面安装docker再使用</p>
-<p>百度docker官方网站，然后下载docker的win版本<br>安装的时候注意，要关闭360的杀毒软件，因为这个安装的过程会修改你的环境变量<br>安装完毕后点击那个鲸鱼的图标,进入命令窗成功运行后会在命令窗里看到一条线性鲸鱼。。<br>可能会要你手动启动一下box的虚拟机开启里面一台机器</p>
-<p>做完后跟着输入下面的命令</p>
-<p>Docker家庭版本加速器<br>开启<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker Quickstart Terminal</span><br></pre></td></tr></table></figure></p>
-<p>输入命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ls</span><br></pre></td></tr></table></figure></p>
-<p>你会看到你目前可以使用的虚拟机<br>比如默认的default虚拟机<br>创建一个配置了加速器的虚拟机命名为zhou(名字可以随意)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --engine-registry-mirror=https://registry.docker-cn.com -d virtualbox zhou</span><br></pre></td></tr></table></figure></p>
-<p>创建完成后面<br>输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ls</span><br></pre></td></tr></table></figure></p>
-<p>命令可以看到成功添加了 一个zhou的虚拟机</p>
-<p>输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine -rm zhou</span><br></pre></td></tr></table></figure></p>
-<p>可以删除名字为zhou的虚拟机</p>
-<p>然后输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh zhou</span><br></pre></td></tr></table></figure></p>
-<p>进入名字为zhou的虚拟机（每一个虚拟机都是一个新的，每个虚拟机之间的东西不是同步的，一台虚拟机里面有的，另一台不会有，除非也添加了）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh</span><br></pre></td></tr></table></figure>
-<p>不输入名字，默认进入但是default的虚拟机，如果没有可能会出现异常</p>
-<p>进入zhou虚拟机后面可以看到，你的输入命令行的前面多了一些字母比如docker@zhou:~$，这个是docker是都有的，@zhou是因为进入的是名字为zhou的虚拟机<br>进入zhou虚拟机后，是无法使用machine 的命令了，因为machine 的命令是操作虚拟机的，在docker中已经在虚拟机里面是执行不了这个命令的</p>
-<p>进入zhou虚拟机 输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info命令</span><br></pre></td></tr></table></figure></p>
-<p>可以在后面看到参数，默认就已经配置成功了<br>Registry Mirrors:<br> <a href="https://registry.docker-cn.com/" target="_blank" rel="noopener">https://registry.docker-cn.com/</a></p>
-<p>配置之后，下载速度视当前网速为定，不会特别快，但是比没有配置的会快一些</p>
-<p>如有误处，恳请指正，深表感谢</p>
+        <h2 id="docker实践"><a href="#docker实践" class="headerlink" title="docker实践"></a>docker实践</h2><p>我们首先使用docker运行一个tomcat</p>
+<p>docker pull tomcat</p>
+<p>docker images</p>
+<p>docker </p>
 
       
 
@@ -282,7 +249,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/05/docker_/docker安装/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/07/docker_/docker实践/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,18 +263,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/06/docker_/docker命令/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          docker命令
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/03/docker_/docker介绍/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Docker介绍</div>
+    <a href="/2019/01/06/docker_/docker命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker命令</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -362,7 +320,7 @@
 <script src="https://billts.site/js/gitment.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://yoursite.com/2019/01/05/docker_/docker安装/",
+  id: "http://yoursite.com/2019/01/07/docker_/docker实践/",
   owner: 'zhouji9699',
   repo: 'github_repo',
   oauth: {

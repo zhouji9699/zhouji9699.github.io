@@ -145,187 +145,30 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-docker_/docker命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker_/docker实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/07/docker_/docker命令/">docker的命令</a>
+      <a class="article-title" href="/2019/01/07/docker_/docker实践/">docker实践</a>
     </h1>
   
 
         
-        <a href="/2019/01/07/docker_/docker命令/" class="archive-article-date">
-  	<time datetime="2019-01-07T01:41:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
+        <a href="/2019/01/07/docker_/docker实践/" class="archive-article-date">
+  	<time datetime="2019-01-07T08:21:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="docker的命令"><a href="#docker的命令" class="headerlink" title="docker的命令"></a>docker的命令</h2><p>文章中提到的镜像就是pull拉取下来的,容器就是我们run创建的并且指定了参数端口,如果文章中有打错字的,还请望解</p>
-<p>docker中的命令和linux下的命令基本差不多就是使用方法不一样，如果你对linux命令比较熟悉那么相信你会很快就可以掌握<br>docker命令可以分为几个大类,而且每个命令中可能还有不同的参数,下面的相当完整的命令,笔者会对里面自己已经使用过的命令进行详细解答</p>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>容器生命周期管理</p>
-<pre><code>run
-start/stop/restart
-kill
-rm
-pause/unpause
-create
-exec
-</code></pre><p>容器操作</p>
-<pre><code>ps
-inspect
-top
-attach
-events
-logs
-wait
-export
-port
-</code></pre><p>容器rootfs命令</p>
-<pre><code>commit
-cp
-diff
-</code></pre><p>镜像仓库</p>
-<pre><code>login
-pull
-push
-search
-</code></pre><p>本地镜像管理</p>
-<pre><code>images
-rmi
-tag
-build
-history
-save
-import
-</code></pre><p>info|version</p>
-<pre><code>info
-version
-</code></pre><p>开始使用docker命令</p>
-<h3 id="pull-拉取镜像"><a href="#pull-拉取镜像" class="headerlink" title="pull 拉取镜像"></a>pull 拉取镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull </span><br><span class="line"></span><br><span class="line">两种方法：</span><br><span class="line">一，</span><br><span class="line">docker tomcat</span><br><span class="line">二，</span><br><span class="line">docker tomcat:7</span><br></pre></td></tr></table></figure>
-<p>这个命令是从镜像仓库中拉取或者更新指定镜像,这个我们上一次讨论过的镜像加速的问题其实就是这个因为默认的镜像仓库地址是国外的，所以如果你没有配置国内的镜像那下载的速度会相对慢，特别是下载一些<br>比较大的镜像那速度就会非常的让人看着着急,前面也说了配置镜像后速度会快，但是也要注意一点的就是，可能你配置的镜像地址缺某一个镜像的版本，比如你配置的镜像地址中可能pull不到Elasticsearch的镜像，这个<br>是有可能的因为配置的镜像地址中也可能没有。。。，不过这个没有关系，因为我们可以通过编写镜像自己写一个镜像出来使用，这个在下面的例子中会简单的教你使用。</p>
-<p>上面是pull的几个写法，:7其实就是代表版本的意思，第二的方法就是拉取tomcat7的镜像，第一个则是默认拉取最新的版本，笔者认为这个最新应该是根据但是系统版本而相当</p>
-<p>这里还有pull的几个参数，有需要的可以了解一下，<br>OPTIONS说明：</p>
-<pre><code>-a :拉取所有 tagged 镜像
-
---disable-content-trust :忽略镜像的校验,默认开启
-</code></pre><h3 id="images显示镜像"><a href="#images显示镜像" class="headerlink" title="images显示镜像"></a>images显示镜像</h3><p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
-
---digests :显示镜像的摘要信息；
-
--f :显示满足条件的镜像；
-
---format :指定返回值的模板文件；
-
---no-trunc :显示完整的镜像信息；
-
--q :只显示镜像ID。
-</code></pre><p>例子</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">显示全部镜像</span><br><span class="line">docker images</span><br><span class="line">显示REPOSITORY为tomcat的镜像</span><br><span class="line">docker images tomcat</span><br><span class="line">显示REPOSITORY为tomcat，TAG为7的镜像</span><br><span class="line">docker images tomcat:7</span><br><span class="line">显示REPOSITORY为tomcat镜像的ID</span><br><span class="line">docker images -a tomcat</span><br></pre></td></tr></table></figure>
-<h3 id="run创建"><a href="#run创建" class="headerlink" title="run创建"></a>run创建</h3><p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；
-
--d: 后台运行容器，并返回容器ID；
-
--i: 以交互模式运行容器，通常与 -t 同时使用；
-
--p: 端口映射，格式为：主机(宿主)端口:容器端口
-
--t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
-
---name=&quot;nginx-lb&quot;: 为容器指定一个名称；
-
---dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；
-
---dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；
-
--h &quot;mars&quot;: 指定容器的hostname；
-
--e username=&quot;ritchie&quot;: 设置环境变量；
-
---env-file=[]: 从指定文件读入环境变量；
-
---cpuset=&quot;0-2&quot; or --cpuset=&quot;0,1,2&quot;: 绑定容器到指定CPU运行；
-
--m :设置容器使用内存最大值；
-
---net=&quot;bridge&quot;: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；
-
---link=[]: 添加链接到另一个容器；
-
---expose=[]: 开放一个端口或一组端口； 
-</code></pre><p>例子</p>
-<p>使用docker镜像tomcat:latest以后台模式启动一个容器,并将容器命名为mytomcat。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mytomcat -d tomcat:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用镜像tomcat:latest以后台模式启动一个容器,并将容器的端口映射到主机随机端口。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -P -d tomcat:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用镜像tomcat:latest以后台模式启动一个容器,并将容器的端口映射到主机随机端口,这个p是小写。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run  -d  -p 8080:8080 tomcat:latest</span><br><span class="line"></span><br><span class="line">运行这个命令可以看到启动tomcat镜像，这个命令后面详细解答</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
-<p>这个时候就可以浏览器访问 <a href="http://localhost:8080/了,注意防火墙，如果你是虚拟机运行，那么ip记得写虚拟机地址。" target="_blank" rel="noopener">http://localhost:8080/了,注意防火墙，如果你是虚拟机运行，那么ip记得写虚拟机地址。</a></p>
-<p>使用镜像 tomcat:latest，以后台模式启动一个容器,将容器的 8080 端口映射到主机的 8080 端口,主机的目录 /root 映射到容器的 /usr/local/tomcat/logs,这个-v其实是挂载。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8080:8080 -v /root:/usr/<span class="built_in">local</span>/tomcat/logs -d tomcat:latest</span><br></pre></td></tr></table></figure></p>
-<p>使用镜像tomcat:latest以交互模式启动一个容器,在容器内执行/bin/bash命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -it tomcat /bin/bash</span><br><span class="line">root@b8573233d675:/<span class="comment">#</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="ps-列出容器"><a href="#ps-列出容器" class="headerlink" title="ps 列出容器"></a>ps 列出容器</h2><p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps [OPTIONS]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-a :显示所有的容器，包括未运行的。
-
--f :根据条件过滤显示的内容。
-
---format :指定返回值的模板文件。
-
--l :显示最近创建的容器。
-
--n :列出最近创建的n个容器。
-
---no-trunc :不截断输出。
-
--q :静默模式，只显示容器编号。
-
--s :显示总的文件大小。
-</code></pre><p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列出运行中的容器</span><br><span class="line">docker ps</span><br><span class="line">列出未运行的容器并且显示最近创建的容器</span><br><span class="line">docker ps -a -l</span><br><span class="line">列出未运行的容器并且显示最近创建的2个容器</span><br><span class="line">docker ps -a -n 2</span><br></pre></td></tr></table></figure></p>
-<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> [OPTIONS] CONTAINER COMMAND [ARG...]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-d :分离模式: 在后台运行
-
--i :即使没有附加也保持STDIN 打开
-
--t :分配一个伪终端
-</code></pre><p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">进入tomcat中</span><br><span class="line">docker <span class="built_in">exec</span> -it tomcat /bin/bash</span><br><span class="line"></span><br><span class="line">tomcat中以交互模式执行容器内/root/runoob.sh脚本</span><br><span class="line">docker <span class="built_in">exec</span> -it tomcat /bin/sh /root/runoob.sh</span><br></pre></td></tr></table></figure></p>
-<p>之所以启动的时候后面添加 /bin/bash 命令是因为如果容器中没有启动程序就会关闭镜像 这个命令是启动/bin中bash程序<br>而/usr/sbin/sshd -D 一般来说容器有自己的网关才这样启动</p>
-<h3 id="start-stop-restart"><a href="#start-stop-restart" class="headerlink" title="start/stop/restart"></a>start/stop/restart</h3><p>docker start :启动一个或多个已经被停止的容器</p>
-<p>docker stop :停止一个运行中的容器</p>
-<p>docker restart :重启容器</p>
-<p>语法</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker start [OPTIONS] CONTAINER [CONTAINER...]</span><br><span class="line"></span><br><span class="line">docker stop [OPTIONS] CONTAINER [CONTAINER...]</span><br><span class="line"></span><br><span class="line">docker restart [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></table></figure>
-<p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动已被停止的名字叫myrunoob的容器</span><br><span class="line">docker start myrunoob</span><br><span class="line">停止运行中的名字叫myrunoob的容器</span><br><span class="line">docker stop myrunoob</span><br><span class="line">重启名字叫myrunoob的容器</span><br><span class="line">docker restart myrunoob</span><br></pre></td></tr></table></figure></p>
-<p>这个的启动，你需要先创建就是docker中的run,然后用ps命令查询详细上查看上面命令</p>
-<h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><p>杀掉一个运行中的容器。</p>
-<p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-s :向容器发送一个信号
-</code></pre><p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> tomcat</span><br></pre></td></tr></table></figure></p>
-<p>这里使用运行中的ID替换容器名字也可以</p>
-<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p>docker rm ：删除一个或多少容器</p>
-<p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-f :通过SIGKILL信号强制删除一个运行中的容器
-
--l :移除容器间的网络连接，而非容器本身
-
--v :-v 删除与容器关联的卷
-</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">删除名字为tomcat的容器</span><br><span class="line">docker rm tomcat</span><br><span class="line"></span><br><span class="line">强制删除容器db01、db02</span><br><span class="line">docker rm -f db01 db02</span><br><span class="line"></span><br><span class="line">移除容器tomcat对容器db01的连接，连接名db</span><br><span class="line">docker rm -l db </span><br><span class="line"></span><br><span class="line">删除容器tomcat,并删除容器挂载的数据卷</span><br><span class="line">docker rm -v nginx01</span><br></pre></td></tr></table></figure>
-<h3 id="rmi"><a href="#rmi" class="headerlink" title="rmi"></a>rmi</h3><p>docker rmi : 删除本地一个或多少镜像。</p>
-<p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi [OPTIONS] IMAGE [IMAGE...]</span><br></pre></td></tr></table></figure></p>
-<p>OPTIONS说明：</p>
-<pre><code>-f :强制删除；
-
---no-prune :不移除该镜像的过程镜像，默认移除；
-</code></pre><p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f tomcat:latest</span><br></pre></td></tr></table></figure></p>
-<p>以上就是docker中基本的一些命令</p>
-<p>如有误处，恳请指正，深表感谢</p>
+        <h2 id="docker实践"><a href="#docker实践" class="headerlink" title="docker实践"></a>docker实践</h2><p>我们首先使用docker运行一个tomcat</p>
+<p>docker pull tomcat</p>
+<p>docker images</p>
+<p>docker </p>
 
       
 
@@ -360,7 +203,95 @@ version
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/07/docker_/docker命令/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/01/07/docker_/docker实践/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-docker_/docker命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/06/docker_/docker命令/">docker命令</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/06/docker_/docker命令/" class="archive-article-date">
+  	<time datetime="2019-01-06T01:41:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="docker的命令"><a href="#docker的命令" class="headerlink" title="docker的命令"></a>docker的命令</h2><p>文章中提到的镜像就是pull拉取下来的,容器就是我们run创建的并且指定了参数端口,如果文章中有打错字的,还请望解</p>
+<p>docker中的命令和linux下的命令基本差不多就是使用方法不一样，如果你对linux命令比较熟悉那么相信你会很快就可以掌握<br>docker命令可以分为几个大类,而且每个命令中可能还有不同的参数,下面的相当完整的命令,笔者会对里面自己已经使用过的命令进行详细解答</p>
+        
+          <a class="article-more-a" href="/2019/01/06/docker_/docker命令/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux-技术//" class="article-tag-list-link color4">linux 技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/06/docker_/docker命令/">展开全文 >></a>
         </p>
       
 
@@ -413,41 +344,10 @@ version
         <h2 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h2><p>docker的各个版本之间安装的方式可以会略有不同,docker是基于linux的内核的所以不同的docker版本要对于好linux的版本,这里linux展示的是centOS6.8</p>
 <h3 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h3><p>先执行安装命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release</span><br><span class="line">yum install -y docker-io</span><br></pre></td></tr></table></figure>
-<p>执行安装后会有配置文件/etc/sysconfig/docker</p>
-<p>启动Docker后台服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker start</span><br></pre></td></tr></table></figure></p>
-<p>验证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure></p>
-<p>查看详情<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure></p>
-<p>linux下安装的比较简单，但是注意版本</p>
-<p>配置加速镜像<br>配置Docker加速器的本质就是把Docker配置文件中的镜像下载地址由默认的Docker Hub地址变为国内镜像的加速地址。<br>因为国内访问国外的网络实在是太忙了</p>
-<p>加速镜像可以配置阿里的，腾讯之类的，但是要去开通一下可能会要付费，我就没有去开通了<br>只是找了一个可以使用的地址<br>我们设置了这个地址，如果我们pull一个镜像，如果这个地址里面没有这个镜像，那就下载不到</p>
-<p>6.8配置/etc/sysconfig/docker文件<br>other_args=”–registry-mirror=<a href="https://jxus37ad.mirror.aliyuncs.com&quot;" target="_blank" rel="noopener">https://jxus37ad.mirror.aliyuncs.com&quot;</a></p>
-<p>配置好other_args参数就可以<br>然后重启docker 命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure></p>
-<p>6.8的可以通过<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps ef | grep docker</span><br></pre></td></tr></table></figure></p>
-<p>验证是否添加加速成功,如果看到上面设置的地址就是成功了</p>
-<p>docker大部分的添加镜像的版本还是配置位置在/etc/docker/daemon.json的文件</p>
-<p>在docker文件中添加了other_args,最好还是看看有没有daemon.json的文件和里面的配置的地址</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"registry-mirrors"</span>: [<span class="string">"https://jxus37ad.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果daemon.json的文件的地址跟配置的地址一致就OK了，一般来说都是直接配置这个文件，不需要配置other_args，但是还是有一些版本需要通过<br>other_args来生成daemon.json里面的地址</p>
-<h3 id="Win10家庭版本"><a href="#Win10家庭版本" class="headerlink" title="Win10家庭版本"></a>Win10家庭版本</h3><p>之前说过docker是基于linux内核的，所以docker的win版本也是先帮你安装box的虚拟机，再在虚拟机里面安装docker再使用</p>
-<p>百度docker官方网站，然后下载docker的win版本<br>安装的时候注意，要关闭360的杀毒软件，因为这个安装的过程会修改你的环境变量<br>安装完毕后点击那个鲸鱼的图标,进入命令窗成功运行后会在命令窗里看到一条线性鲸鱼。。<br>可能会要你手动启动一下box的虚拟机开启里面一台机器</p>
-<p>做完后跟着输入下面的命令</p>
-<p>Docker家庭版本加速器<br>开启<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker Quickstart Terminal</span><br></pre></td></tr></table></figure></p>
-<p>输入命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ls</span><br></pre></td></tr></table></figure></p>
-<p>你会看到你目前可以使用的虚拟机<br>比如默认的default虚拟机<br>创建一个配置了加速器的虚拟机命名为zhou(名字可以随意)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --engine-registry-mirror=https://registry.docker-cn.com -d virtualbox zhou</span><br></pre></td></tr></table></figure></p>
-<p>创建完成后面<br>输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ls</span><br></pre></td></tr></table></figure></p>
-<p>命令可以看到成功添加了 一个zhou的虚拟机</p>
-<p>输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine -rm zhou</span><br></pre></td></tr></table></figure></p>
-<p>可以删除名字为zhou的虚拟机</p>
-<p>然后输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh zhou</span><br></pre></td></tr></table></figure></p>
-<p>进入名字为zhou的虚拟机（每一个虚拟机都是一个新的，每个虚拟机之间的东西不是同步的，一台虚拟机里面有的，另一台不会有，除非也添加了）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh</span><br></pre></td></tr></table></figure>
-<p>不输入名字，默认进入但是default的虚拟机，如果没有可能会出现异常</p>
-<p>进入zhou虚拟机后面可以看到，你的输入命令行的前面多了一些字母比如docker@zhou:~$，这个是docker是都有的，@zhou是因为进入的是名字为zhou的虚拟机<br>进入zhou虚拟机后，是无法使用machine 的命令了，因为machine 的命令是操作虚拟机的，在docker中已经在虚拟机里面是执行不了这个命令的</p>
-<p>进入zhou虚拟机 输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info命令</span><br></pre></td></tr></table></figure></p>
-<p>可以在后面看到参数，默认就已经配置成功了<br>Registry Mirrors:<br> <a href="https://registry.docker-cn.com/" target="_blank" rel="noopener">https://registry.docker-cn.com/</a></p>
-<p>配置之后，下载速度视当前网速为定，不会特别快，但是比没有配置的会快一些</p>
-<p>如有误处，恳请指正，深表感谢</p>
-
+<p>执行安装后会有配置文件/etc/sysconfig/docker<br>
+        
+          <a class="article-more-a" href="/2019/01/05/docker_/docker安装/#more">more >></a>
+        
       
 
       
@@ -533,16 +433,9 @@ version
       
         <h2 id="Docker介绍"><a href="#Docker介绍" class="headerlink" title="Docker介绍"></a>Docker介绍</h2><p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。<br>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p>
 <p>Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，便可以实现虚拟化。Docker改变了虚拟化的方式，<br>使开发者可以直接将自己的成果放入Docker中进行管理。<br>方便快捷已经是 Docker的最大优势，过去需要用数天乃至数周的 任务，在Docker容器的处理下，只需要数秒就能完成。</p>
-<p>如果你有选择恐惧症，还是资深患者。Docker 帮你 打包你的纠结！比如 Docker 镜像；Docker 镜像中包含了运行环境和配置，所以 Docker 可以简化部署多种应用实例工作。<br>比如 Web 应用、后台应用、数据库应用、大数据应用比如 Hadoop 集群、消息队列等等都可以打包成一个镜像部署。 </p>
-<p>以上是笔者找的相对正式一点的介绍，下面是自己学习过后对docker的一点认识</p>
-<p>简单说就是Docker是一个虚拟技术，与虚拟机VMware有很多相似的地方，<br>但是也是不同的地方，比如VMware中创建的是一个完整的系统，<br>并且底层的硬件完全隔离，就是一旦分配了VMware虚拟机中的内存是多少那么就是多少，不管VMware虚拟机里面是否使用到了内存那些内存就已经被占用了，而且在我们在实际中的使用VMware创建的虚拟机<br>中创建的是一个完整的如果你需要创建多给虚拟机那么就会有一些重复的东西浪费内存，但是如果使用docker创建就不会。docker中创建linux镜像创建的是一个比较干净的linux系统，<br>那么很多东西就需要自己去下载比如vim之类的，而且docker里面的用户系统会有一些限制。</p>
-<p>docker中运行的是镜像，比如用docker生成了一个镜像tomcat你只需要运行这个镜像并且分配给相应的端口就可以使tomcat启动并且运行起来，<br>但是在docker中镜像是可以保存的，你可以把你现在运行的镜像保存起来，然后放到其他安装了docker的机器上，也是可以的这样不会出现因为环境不同而导致的错误，简单说就是不会出现”明明在我电脑上可以运行，而且别人电脑却不行”的问题，<br>因为docker的中镜像中就包含运行的环境，在保存镜像的时候会把相应的环境也打包进去</p>
-<p>docker是基于linux内核的，所以就算是官方在windows下使用docker也是先安装一个box的虚拟机再在虚拟机里安装linux系统然后再安装docker，如果是学习的话可以在<br>VMware中安装linux然后在里面安装docker</p>
-<p>由于对docker的使用没有涉及太深，所有对docker的优点整体感觉是，对于运维服务部署，迁移更便利，至于所说的内存减少，笔者感觉更多的是相比VMware而言，<br>而VMware之所以会比docker占内存是因为docker中安装的镜像会相对干净很多，但是感觉也减少不了多少</p>
-<p>docker优点<br>启动docker的系统代价比启动一台虚拟机的代价要低得多：不管是从启动时间还是从启动资源耗费角度来说。<br>docker直接利用宿主机的系统内核，避免了虚拟机启动时所需的系统引导时间和操作系统运行的资源消耗。<br>利用docker能在几秒钟之内启动大量的容器，这是虚拟机无法办到的。快速启动、低系统资源消耗的优点使docker在弹性云平台和自动运维系统方面有着很好的应用前景</p>
-<p>docker几个缺点：<br>1.资源隔离方面不如虚拟机，docker是利用cgroup实现资源限制的，只能限制资源消耗的最大值，而不能隔绝其他程序占用自己的资源。<br>2.安全性问题。docker目前并不能分辨具体执行指令的用户，只要一个用户拥有执行docker的权限，那么他就可以对docker的容器进行所有操作，不管该容器是否是由该用户创建。<br>比如A和B都拥有执行docker的权限，由于docker的server端并不会具体判断docker cline是由哪个用户发起的，A可以删除B创建的容器，存在一定的安全风险。<br>3.docker目前还在版本的快速更新中，细节功能调整比较大。一些核心模块依赖于高版本内核，存在版本兼容问题，特别是这个在学习的过程中要注意linux的版本是否会下载的docker相对应</p>
-<p>如有误处，恳请指正，深表感谢</p>
-
+        
+          <a class="article-more-a" href="/2019/01/03/docker_/docker介绍/#more">more >></a>
+        
       
 
       
@@ -606,35 +499,27 @@ version
 
 
   
-    <article id="post-test/hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-test/First-World" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/02/test/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/07/31/test/First-World/">First-wo</a>
     </h1>
   
 
         
-        <a href="/2019/01/02/test/hello-world/" class="archive-article-date">
-  	<time datetime="2019-01-02T06:24:03.959Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
+        <a href="/2018/07/31/test/First-World/" class="archive-article-date">
+  	<time datetime="2018-07-31T09:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>On world, i can 2018</p>
 
       
 
@@ -647,7 +532,7 @@ version
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/test/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/31/test/First-World/">展开全文 >></a>
         </p>
       
 
@@ -677,27 +562,35 @@ version
 
 
   
-    <article id="post-test/First-World" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-test/hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/02/test/First-World/">First-wo</a>
+      <a class="article-title" href="/2018/07/31/test/hello-world/">Hello World</a>
     </h1>
   
 
         
-        <a href="/2019/01/02/test/First-World/" class="archive-article-date">
-  	<time datetime="2019-01-02T06:24:03.958Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
+        <a href="/2018/07/31/test/hello-world/" class="archive-article-date">
+  	<time datetime="2018-07-31T09:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>On world, i can 2018</p>
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
 
@@ -710,7 +603,7 @@ version
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/test/First-World/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/31/test/hello-world/">展开全文 >></a>
         </p>
       
 
