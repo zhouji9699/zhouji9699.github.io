@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>docker实践 | Zhou M博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
+  <meta name="description" content="docker实践我们首先使用docker运行一个tomcat 12345678910111213141516171819202122232425262728293031docker pull tomcat &amp;lt;!-- more --&amp;gt; docker imagesdocker run -d -p 8080:8080 -v /root/:  tomcat /bin/bashdocker ps">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker实践">
 <meta property="og:url" content="http://yoursite.com/2019/01/07/docker_/docker实践/index.html">
 <meta property="og:site_name" content="Zhou M博客">
-<meta property="og:description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
+<meta property="og:description" content="docker实践我们首先使用docker运行一个tomcat 12345678910111213141516171819202122232425262728293031docker pull tomcat &amp;lt;!-- more --&amp;gt; docker imagesdocker run -d -p 8080:8080 -v /root/:  tomcat /bin/bashdocker ps">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-07T09:24:01.611Z">
+<meta property="og:updated_time" content="2019-01-08T02:14:03.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker实践">
-<meta name="twitter:description" content="docker实践我们首先使用docker运行一个tomcat docker pull tomcat docker images docker">
+<meta name="twitter:description" content="docker实践我们首先使用docker运行一个tomcat 12345678910111213141516171819202122232425262728293031docker pull tomcat &amp;lt;!-- more --&amp;gt; docker imagesdocker run -d -p 8080:8080 -v /root/:  tomcat /bin/bashdocker ps">
   
     <link rel="alternative" href="/atom.xml" title="Zhou M博客" type="application/atom+xml">
   
@@ -166,9 +166,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="docker实践"><a href="#docker实践" class="headerlink" title="docker实践"></a>docker实践</h2><p>我们首先使用docker运行一个tomcat</p>
-<p>docker pull tomcat</p>
-<p>docker images</p>
-<p>docker </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">docker pull tomcat</span><br><span class="line"> &lt;!-- more --&gt; </span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line">docker run -d -p 8080:8080 -v /root/:  tomcat /bin/bash</span><br><span class="line"></span><br><span class="line">docker ps </span><br><span class="line"></span><br><span class="line">ps -ef | grep docker </span><br><span class="line">看看分配的地址</span><br><span class="line"></span><br><span class="line">访问地址tomcat</span><br><span class="line">测试一下挂载</span><br><span class="line"></span><br><span class="line">docker stop tomcat</span><br><span class="line"></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line">docker ps -a</span><br><span class="line"></span><br><span class="line">docker start tomcat </span><br><span class="line"></span><br><span class="line">docker ps </span><br><span class="line"></span><br><span class="line">访问地址tomcat</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">kill</span> tomcat </span><br><span class="line"></span><br><span class="line">docker rm tomcat </span><br><span class="line"></span><br><span class="line">docker rmi tomcat</span><br></pre></td></tr></table></figure>
 
       
 
